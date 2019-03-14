@@ -1,0 +1,57 @@
+{% if include.post.content and include.post.content != "" %}
+{% assign title = include.post.content | replace_first: "<br>", '
+'  | strip | replace_first: '
+', "<br>" | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
+{% assign summary = include.post.content | strip_html | truncatewords: 30 | truncate: 255 %}
+{% else %}
+{% assign title = "UNTITLED" %}
+{% assign summary = "" %}
+{% endif %}
+
+<article class="h-entry col-sm-12">
+  <header>
+    <h1 class="p-name">{{ title }}</h1>
+    <p>
+      {% if include.post.author %}
+        {% include author.html author=include.post.author %}
+      {% endif %}
+      <a class="u-url" href="{{ include.post.url }}">
+        {% if include.post.creationTime %}<time class="dt-published" datetime="{{ include.post.creationTime }}">{{ include.post.creationTime | date_to_rfc822 }}</time>{% else %}{{ include.post.url }}{% endif %}
+      </a>
+      {% if include.post.updateTime and include.post.updateTime != include.post.creationTime %}<time class="dt-updated" datetime="{{ include.post.updateTime }}" data-prefix=" and updated on ">{{ include.post.updateTime | date_to_rfc822 }}</time>{% endif %}
+      {% if false and include.post.postAcl and include.post.postAcl.collectionAcl %}
+      <a class="p-category" href="{{ include.post.postAcl.collectionAcl.collection.url }}">{{ include.post.postAcl.collectionAcl.collection.displayName }}</a>
+      {% endif %}
+      {% if include.audiences %}<ul class="inline-list audiences">
+      {% for audience in include.audiences %}
+      <li class="p-category audience">{{ audience }}</li>
+      {% endfor %}
+      </ul>{% endif %}
+    </p>
+
+    <p class="p-summary hidden">{{ summary }}</p>
+  </header>
+
+  <section class="content">
+    <div class="e-content">
+      {% if include.post.media %}{% include media.html media=include.post.media title=title %}{% endif %}
+      {% if include.post.album %}{% include album.html media=include.post.album title=title %}{% endif %}
+      <p class="body">{{ include.post.content }}</p>
+    </div>
+  </section>
+
+  {% if include.post.resharedPost %}
+  <section class="resharedContent row">
+    <h3>Reshared from:</h3>
+    {% include post.html post=include.post.resharedPost %}
+  </section>
+  {% endif %}
+
+  {% if include.post.comments %}
+  <footer class="comments row">
+    {% for comment in include.post.comments %}
+      {% include comment.html comment=comment post_title=title %}
+    {% endfor %}
+  </footer>
+  {% endif %}
+</article>

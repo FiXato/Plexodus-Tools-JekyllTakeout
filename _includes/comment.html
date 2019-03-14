@@ -1,0 +1,30 @@
+{% if include.comment.content and include.comment.content != "" %}
+{% assign title = include.comment.content | replace_first: "<br>", '
+'  | strip | replace_first: '
+', "<br>" | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
+{% assign summary = include.comment.content | strip_html | truncatewords: 30 | truncate: 255 %}
+{% else %}
+{% assign title = "UNTITLED" %}
+{% assign summary = "" %}
+{% endif %}
+
+{% assign comment_id = include.comment.commentActivityId | splice: '#' | last %}
+
+    <div class="col-sm-12">
+      <div class="p-comment h-entry" id="comment-{{ comment_id }}">
+        <header>
+          {% include author.html author=include.comment.author %}
+          <a href="{{ include.comment.postUrl }}" class="u-in-reply-to">Re: {{ include.post_title }}</a>
+          <a class="u-url" href="#comment-{{ comment_id }}">{% if include.comment.creationTime %}<time class="dt-published" datetime="{{ include.comment.creationTime }}">{{ include.comment.creationTime | date_to_rfc822 }}</time>{% else %}{{ include.comment.commentActivityId }}{% endif %}</a>
+          {% if include.comment.updateTime and include.comment.updateTime != include.comment.creationTime %}<time class="dt-updated" datetime="{{ include.comment.updateTime }}" data-prefix=" and updated on ">{{ include.comment.updateTime | date_to_rfc822 }}</time>{% endif %}
+
+          <p class="p-summary hidden">{{ summary }}</p>
+        </header>
+
+        <section class="content">
+          <div class="p-content">
+            <p class="body p-name">{{ include.comment.content }}</p>
+          </div>
+        </section>
+      </div>
+    </div>

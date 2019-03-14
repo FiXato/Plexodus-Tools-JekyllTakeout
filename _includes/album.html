@@ -1,0 +1,4 @@
+    {% if include.album.media %}
+    Found {{ include.album.media | size }} media files:
+    {% for medium in include.album.media %}<img alt="Media file for {{ include.title }}: {{ medium.description }}" title="Media file for {{ include.title }}: {{ medium.description }}" src="{{ medium.url }}"/>{% endfor %}
+    {% endif %}

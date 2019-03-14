@@ -1,0 +1,23 @@
+.p-author span:before {content: "Posted by\20";}
+/*.u-url:before {content: "at\20";}*/
+a { color: #a55; }
+a:hover { color: #b4da55; }
+.dt-published:before {content: "on"; text-decoration: none; display: inline-block; padding-right: 0.25em; color: black;}
+.dt-updated:before {content: attr(data-prefix);}
+.audiences:before {content: "Visible to: "; text-decoration: none; display: inline-block; padding-right: 0.25em; color: black;}
+.audiences { display: inline-block; margin: 0;}
+.audiences li { display: inline-block;}
+
+.dt-published,.dt-updated {display: inline-block;}
+
+.u-photo {float: right;}
+
+.p-comment {background-color: #efefef; width: 100%; padding: 0.5rem;}
+.p-comment .content {overflow: auto;}
+.comments.row > div { padding: 0.5em; }
+.comments .p-summary, .h-entry header .p-summary {display: none;}
+#page-body > .h-entry { background-color: #fdfff5; max-width: 800px; margin: auto auto}
+
+section.content { margin-top: 1em; }
+
+section.resharedContent { margin: 1em 1em; padding: 1em; background-color: #ededed;}

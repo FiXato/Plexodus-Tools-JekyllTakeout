@@ -1,0 +1,46 @@
+---
+layout: home
+debug: false
+---
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+
+{% assign first_post = site.data.posts.first[1] %}
+<h1>Posts by <img alt="Profile photo of {{ first_post.author.displayName }}" title="Profile photo of {{ first_post.author.displayName }}" src="{{ first_post.author.avatarImageUrl }}" />{{ first_post.author.displayName }}</h1>
+
+{% assign posts = "" | split:'' %}
+{% assign site_posts = site.data.posts %}
+{% assign public_posts = site_posts | where_exp: "post", 'post.postAcl.isPublic == true' %}
+
+<p>Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are public. Listing public posts:</p>
+{% assign counter = 0 %}
+
+{% for post in public_posts reversed %}
+  {% assign audiences = "" | split: ',' %}
+  {% assign circle_types = post.postAcl.visibleToStandardAcl.circles | map: 'type' %}
+  {% assign circle_display_names = post.postAcl.visibleToStandardAcl.circles | map: 'displayName' %}
+  {% if circle_types contains 'CIRCLE_TYPE_PUBLIC' %}{% assign audiences = audiences | push: 'Public' %}{% endif %}
+  {% if circle_types contains 'CIRCLE_TYPE_EXTENDED_CIRCLES' %}{% assign audiences = audiences | push: 'Extended Circles' %}{% endif %}
+  {% if circle_types contains 'CIRCLE_TYPE_YOUR_CIRCLES' %}{% assign audiences = audiences | push: "{{ first_post.author.displayName }}'s circles" %}{% endif %}
+  {% if circle_types contains 'CIRCLE_TYPE_USER_CIRCLE' %}{% assign audiences = audiences | concat: circle_display_names %}{% endif %}
+
+  {% if post.postAcl.collectionAcl.collection.displayName %}{% assign audiences = audiences | push: post.postAcl.collectionAcl.collection.displayName %}{% endif %}
+
+  {% if post.postAcl.communityAcl %}
+    {% if post.postAcl.communityAcl.community.displayName %}{% assign audiences = audiences | push: post.postAcl.communityAcl.community.displayName %}
+    {% else %}{% assign audiences = audiences | push: 'UNTITLED_COLLECTION' %}{% endif %}
+  {% endif %}
+
+  {% if post.postAcl.eventAcl %}
+    {% if post.postAcl.eventAcl.event.displayName %}{% assign audiences = audiences | push: post.postAcl.eventAcl.event.displayName %}
+    {% else %}{% assign audiences = audiences | push: 'UNTITLED_EVENT' %}{% endif %}
+  {% endif %}
+
+  {% include post.html post=post audiences=audiences %}
+  <hr/>
+
+  {% assign counter=counter | plus:1 %}
+  {% if counter >= 50 %}
+    {% break %}
+  {% endif %}
+
+{% endfor %}
