@@ -57,7 +57,7 @@ Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are publ
 
     {% if post.media.url %}
     {% if post.media.contentType == 'image/*' %}![Media file for {{ title }} ]({{ post.media.url }}){% endif %}
-    {% if post.media.contentType == 'video/*' %}<div class='embed-container'><iframe src="{{ post.media.url | replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtu.be/", "https://www.youtube.com/embed/" | replace: "http://youtu.be/", "https://www.youtube.com/embed/" }}" frameborder="0"></iframe></div>{% endif %}
+    {% if post.media.contentType == 'video/*' %}<div class='embed-container'><iframe src="{{ post.media.url | replace: "http://youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtu.be/", "https://www.youtube.com/embed/" | replace: "http://youtu.be/", "https://www.youtube.com/embed/" }}" frameborder="0"></iframe></div>{% endif %}
     {% endif %}
     {% if post.album.media %}
     Found {{ post.album.media | size }} media files:
@@ -77,7 +77,7 @@ Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are publ
 
       {% if post.resharedPost.media.url %}
       {% if post.resharedPost.media.contentType == 'image/*' %}![Media file for {{ title }} ]({{ post.resharedPost.media.url }}){% endif %}
-      {% if post.resharedPost.media.contentType == 'video/*' %}<div class='embed-container'><iframe src="{{ post.resharedPost.media.url | replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtu.be/", "https://www.youtube.com/embed/" | replace: "http://youtu.be/", "https://www.youtube.com/embed/" }}" frameborder="0"></iframe></div>{% endif %}
+      {% if post.resharedPost.media.contentType == 'video/*' %}<div class='embed-container'><iframe src="{{ post.resharedPost.media.url | replace: "http://youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | replace: "https://youtu.be/", "https://www.youtube.com/embed/" | replace: "http://youtu.be/", "https://www.youtube.com/embed/" }}" frameborder="0"></iframe></div>{% endif %}
       {% endif %}
       {% if post.resharedPost.album.media %}
       Found {{ post.resharedPost.album.media | size }} media files:
