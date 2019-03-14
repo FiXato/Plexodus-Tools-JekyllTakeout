@@ -45,7 +45,9 @@ Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are publ
 {% endif %}
 {% endif %}
 
-  {% assign title = post.content | replace_first: "<br>", " " | strip | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
+  {% assign title = post.content | replace_first: "<br>", '
+'  | strip | replace_first: '
+', "<br>" | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
   * # {{ title }}
     
     Posted by [{{ post.author.displayName }}]({{ post.author.profilePageUrl }}) on {{ post.creationTime | date_to_rfc822 }} {% if post.url contains 'https://plus.google.com/' %}[on G+]({{ post.url }}){% else %}[on {{ post.url | remove: 'https://' | remove: 'https://' | split: '/' | first }}]({{ post.url }}){% endif %}{% if post.updateTime and post.updateTime != post.creationTime %} and last updated on {{ post.updateTime | date_to_rfc822 }}{% endif %}    
@@ -66,7 +68,9 @@ Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are publ
     ---
 
     {% if post.resharedPost %}
-    {% assign title = post.resharedPost.content | replace_first: "<br>", " " | strip | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
+    {% assign title = post.resharedPost.content | replace_first: "<br>", '
+'  | strip | replace_first: '
+', "<br>" | split: "<br>" | first | strip_html | truncatewords: 10 | truncate: 100 %}
     * ## {{ title }}
 
       Posted by [{{ post.resharedPost.author.displayName }}]({{ post.resharedPost.author.profilePageUrl }}) {% if post.resharedPost.url contains 'https://plus.google.com/' %}[on G+]({{ post.resharedPost.url }}){% else %}[on {{ post.resharedPost.url | remove: 'https://' | remove: 'https://' | split: '/' | first }}]({{ post.resharedPost.url }}){% endif %}{% if post.resharedPost.updateTime and post.resharedPost.updateTime != post.resharedPost.creationTime %} and last updated on {{ post.resharedPost.updateTime | date_to_rfc822 }}{% endif %}    
