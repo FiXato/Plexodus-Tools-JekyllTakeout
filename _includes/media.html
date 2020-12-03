@@ -1,21 +1,21 @@
-{% assign iframe_src = include.media.url | 
-  replace: "http://youtube.com/watch?v=", "https://www.youtube.com/embed/" | 
-  replace: "https://youtube.com/watch?v=", "https://www.youtube.com/embed/" | 
-  replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | 
-  replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" | 
-  replace: "https://youtu.be/", "https://www.youtube.com/embed/" | 
+{% assign iframe_src = include.media.url |
+  replace: "http://youtube.com/watch?v=", "https://www.youtube.com/embed/" |
+  replace: "https://youtube.com/watch?v=", "https://www.youtube.com/embed/" |
+  replace: "http://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" |
+  replace: "https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/" |
+  replace: "https://youtu.be/", "https://www.youtube.com/embed/" |
   replace: "http://youtu.be/", "https://www.youtube.com/embed/" |
-  replace: "https://youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" | 
-  replace: "https://youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" | 
-  replace: "http://www.youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" | 
-  replace: "https://www.youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" | 
+  replace: "https://youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" |
+  replace: "https://youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" |
+  replace: "http://www.youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" |
+  replace: "https://www.youtube.com/watch?feature=player_embedded&v=", "https://www.youtube.com/embed/" |
   replace: "https://vimeo.com/", "https://player.vimeo.com/video/" |
   replace: "https://www.vimeo.com/", "https://player.vimeo.com/video/" |
   replace: "http://vimeo.com/", "https://player.vimeo.com/video/" |
   replace: "http://www.vimeo.com/", "https://player.vimeo.com/video/"
 %}
     {% if include.media.url %}
-    {% if include.media.contentType == 'image/*' %}<img alt="Media file for {{ include.title }}" title="Media file for {{ include.title }}" src="{{ include.media.url }}"/>{% endif %}
+    {% if include.media.contentType == 'image/*' %}<img alt="Media file for {{ include.title }}" title="Media file for {{ include.title }}" src="{{ include.media.url }}" onerror="this.style.display=none" />{% endif %}
     {% if include.media.contentType == 'video/*' %}<div class='embed-container'>
       {% if iframe_src contains "https://www.youtube.com/embed/" or iframe_src contains "https://player.vimeo.com/video/" %}
       <iframe src="{{ iframe_src }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -26,4 +26,8 @@
       </video>
       {% endif %}
     </div>{% endif %}
+    <div class="debug">
+      <div data-var='include'>{{ include }}</div>
+      <div data-var='iframe_src'>{{ iframe_src }}</div>
+    </div>
     {% endif %}
