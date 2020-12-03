@@ -21,3 +21,6 @@ a:hover { color: #b4da55; }
 section.content { margin-top: 1em; }
 
 section.resharedContent { margin: 1em 1em; padding: 1em; background-color: #ededed;}
+
+footer.comments {max-height: 20em; overflow-y: auto;}
+.debug {display: none;}
