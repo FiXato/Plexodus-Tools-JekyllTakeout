@@ -26,6 +26,12 @@
       {% for audience in include.audiences %}
       <li class="p-category audience">{{ audience }}</li>
       {% endfor %}
+      {% if post.postAcl.collectionAcl and post.postAcl.collectionAcl.users %}
+        {% for user in post.postAcl.collectionAcl.users %}
+          <li class="p-category audience audience-user"><a href="https://web.archive.org/https://plus.google.com/{{ user.resourceName.split('/').last }}">{{ user.displayName }}</a></li>
+        {% endfor %}
+      {% endif %}
+
       </ul>{% endif %}
     </p>
 
