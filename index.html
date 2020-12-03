@@ -2,14 +2,14 @@
 layout: home
 debug: false
 ---
-<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } img {max-height: 300px;}</style>
 
 {% assign first_post = site.data.posts.first[1] %}
 <h1>Posts by <img alt="Profile photo of {{ first_post.author.displayName }}" title="Profile photo of {{ first_post.author.displayName }}" src="{{ first_post.author.avatarImageUrl }}" />{{ first_post.author.displayName }}</h1>
 
 {% assign posts = "" | split:'' %}
 {% assign site_posts = site.data.posts %}
-{% assign public_posts = site_posts | where_exp: "post", 'post.postAcl.isPublic == true' %}
+{% assign public_posts = site_posts | where_exp: "post", 'post.postAcl.isPublic == true' | public_posts_filter %}
 
 <p>Found: {{ site_posts | size }} posts of which {{ public_posts | size }} are public. Listing public posts:</p>
 {% assign counter = 0 %}
